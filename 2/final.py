@@ -30,40 +30,26 @@ s = 0
 
 def safe(line):
     dif = [line[i+1]-line[i] for i in range(len(line)-1)]
-    if all([dif[i]>=0 for i in range(len(dif))]):
-        for c in dif:
-            if not 0<c<=3:
-                return False
-        return True
-    if all([dif[i]<=0 for i in range(len(dif))]):
-        for c in dif:
-            if not 0>c>=-3:
-                return False
-        return True
+    return all([abs(c)<=3 for c in dif]) and \
+          (all([c>0 for c in dif]) or all([c<0 for c in dif]))
     
 def part1(line):
-    global s
-    if safe(line):
-        s+=1
+    return safe(line)
         
 def part2(line):
     global s
     if safe(line):
-        s+= 1
-        return
+        return True
     for i in range(len(line)):
         if safe(line[:i]+line[i+1:]):
-            s+= 1
-            return
+            return True
+    return False
 
 
 
 if __name__ == "__main__":
     l = read_file("2/input.txt")
-    for line in l:
-        part1(line)
+    s = sum([int(part1(line)) for line in l])
     print("part1 :", s)
-    s=0
-    for line in l:
-        part2(line)
+    s = sum([int(part2(line)) for line in l])
     print("part2 :", s)
