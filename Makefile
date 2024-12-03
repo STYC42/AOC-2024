@@ -27,7 +27,7 @@ pyrun:
 
 mlbuild:
 	mkdir -p $(DAY)/bin
-	ocamlopt -o $(DAY)/bin/final.out $(DAY)/final.ml
+	ocamlopt -o $(DAY)/bin/final.out str.cmxa $(DAY)/final.ml
 	make clean
 
 mlrun:
