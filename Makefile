@@ -20,7 +20,7 @@ ultraclean:
 DAY = $(shell date +%-d)
 
 deltmp:
-	find . -name "part*.*" | xargs rm -f;
+	find . -name "fast.py" | xargs rm -f;
 
 pyrun:
 	python3 $(DAY)/final.py;
@@ -33,16 +33,11 @@ mlbuild:
 mlrun:
 	$(DAY)/bin/final.out;
 
-tmp1run:
-	python3 $(DAY)/part1.py
-
-tmp2run:
-	python3 $(DAY)/part2.py
+run:
+	python3 $(DAY)/fast.py
 
 setup:
 	mkdir -p $(DAY);
-	cp template.py $(DAY)/part1.py;
-	cp template.py $(DAY)/part2.py;
-	sed -i "s/{{DAY}}/$(DAY)/g" $(DAY)/part1.py;
-	sed -i "s/{{DAY}}/$(DAY)/g" $(DAY)/part2.py;
+	cp template.py $(DAY)/fast.py;
+	sed -i "s/{{DAY}}/$(DAY)/g" $(DAY)/fast.py;
 	aocd $(DAY) > $(DAY)/input.txt;
