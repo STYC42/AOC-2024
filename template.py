@@ -24,13 +24,16 @@ def read_file(file):
         elif MODE == 5:
             # return list of parallel lists of strings
             return [[line.split()[i] for line in file] for i in range(NUMBER)]
+        elif MODE == 6:
+            #return all lines as a single string
+            return file.read().strip()
    
    
-
-        
-def main(...):
+def part1(...):
     ...
-
+        
+def part2(...):
+    ...
 
 
 if __name__ == "__main__":
