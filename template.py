@@ -1,6 +1,4 @@
 
-
-
 MODE = ...
 NUMBER = 0
 
@@ -29,13 +27,14 @@ def read_file(file):
             return file.read().strip()
    
    
-def part1(...):
-    ...
+def part1(l):
+    pass
         
-def part2(...):
-    ...
+def part2(l):
+    pass
 
 
 if __name__ == "__main__":
     l = read_file("{{DAY}}/input.txt")
-    ...
+    print("Part 1:", part1(l))
+    print("Part 2:", part2(l))
