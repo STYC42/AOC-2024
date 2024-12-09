@@ -1,31 +1,9 @@
-
-MODE = 0
-NUMBER = 0
+from tqdm import tqdm
 
 def read_file(file):
     with open(file, 'r') as file:
-        if MODE == 0:
-            # return list of strings
-            return [line.strip() for line in file]
-        elif MODE == 1:
-            # return list of tuples of strings
-            return [tuple(line.strip().split()) for line in file]
-        elif MODE == 2:
-            # return list of integers
-            return [int(line) for line in file]
-        elif MODE == 3:
-            # return list of tuples of integers
-            return [tuple(map(int, line.strip().split())) for line in file]
-        elif MODE == 4:
-            # return list of parallel lists of integers
-            return [[int(line.split()[i]) for line in file] for i in range(NUMBER)]
-        elif MODE == 5:
-            # return list of parallel lists of strings
-            return [[line.split()[i] for line in file] for i in range(NUMBER)]
-        elif MODE == 6:
-            #return all lines as a single string
-            return file.read().strip()
-   
+        l = [line.strip() for line in file]
+    return l
    
 def part1(l):
     i = 0
@@ -63,14 +41,13 @@ def part2(l):
     k = 0
     d = 0
     depl = [False]*len(l)
-    for i, c in enumerate(l):
+    for i, c in tqdm(list(enumerate(l)), leave=False):
         if i%2:
             d = int(c)
             for j in range(len(l)-1, i, -1):
                 if not depl[j] and j%2==0 and int(l[j]) <= d:
                         for _ in range(int(l[j])):
                             s += (j//2)*k
-                            print("j", j//2, k)
                             k += 1
                         depl[j] = True
                         d -= int(l[j])
@@ -79,7 +56,6 @@ def part2(l):
             if not depl[i]:
                 for _ in range(int(c)):
                     s += (i//2)*k
-                    print("i", i//2, k)
                     k += 1
                 depl[i] = True
             else:
