@@ -33,11 +33,18 @@ mlbuild:
 mlrun:
 	$(DAY)/bin/final.out;
 
+test:
+	cp $(DAY)/exemple.txt $(DAY)/test.txt;
+	python3 $(DAY)/fast.py
+
 run:
+	cp $(DAY)/input.txt $(DAY)/test.txt;
 	python3 $(DAY)/fast.py
 
 setup:
 	mkdir -p $(DAY);
 	cp template.py $(DAY)/fast.py;
 	sed -i "s/{{DAY}}/$(DAY)/g" $(DAY)/fast.py;
+	touch $(DAY)/test.txt;
+	touch $(DAY)/exemple.txt;
 	aocd $(DAY) > $(DAY)/input.txt;
