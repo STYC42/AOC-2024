@@ -7,7 +7,7 @@ def read_file(file):
 def next_state(n):
     if n == 0:
         return [1]
-    elif len(str(n)) % 2 == 0:
+    elif not len(str(n))&1:
         return [int(str(n)[:len(str(n))//2]), int(str(n)[len(str(n))//2:])]
     else:
         return [n*2024]
@@ -18,7 +18,6 @@ def nb_children(stone, n):
         return 1
     dc = next_state(stone)
     return sum([nb_children(c, n-1) for c in dc])
-   
 
 def part1(l):
     s = 0
@@ -31,7 +30,6 @@ def part2(l):
     for stone in l:
         s += nb_children(stone, 75)
     return s
-
 
 if __name__ == "__main__":
     l = read_file("11/input.txt")
