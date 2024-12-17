@@ -31,35 +31,36 @@ def combo(registers, value):
 
 def run(registers, program):
     i = 0
+    A, B, C = registers
     out = []
     while i < len(program):
         instr = program[i]
-        if instr == 0: #adv
-            registers[0] = registers[0] // 2**combo(registers, program[i+1])
-            i += 2
-        elif instr == 1: #bxl
-            registers[1] = registers[1]^program[i+1]
-            i += 2
-        elif instr == 2: #bst
-            registers[1] = combo(registers, program[i+1]) % 8
-            i += 2
-        elif instr == 3: #jnz
-            if registers[0]:
-                i = program[i+1]
-            else:
+        oper = program[i+1]
+        match instr:
+            case 0:
+                A = A // 2**combo((A, B, C), oper)
                 i += 2
-        elif instr == 4: #bxc
-            registers[1] = registers[1]^registers[2]
-            i += 2
-        elif instr == 5: #out
-            out.append(combo(registers, program[i+1])%8)
-            i += 2
-        elif instr == 6: #bdv
-            registers[1] = registers[0] // 2**combo(registers, program[i+1])
-            i += 2
-        elif instr == 7: #cdv
-            registers[2] = registers[0] // 2**combo(registers, program[i+1])
-            i += 2
+            case 1: 
+                B = B^oper
+                i += 2
+            case 2:
+                B = combo((A, B, C), oper) % 8
+                i += 2
+            case 3:
+                if A: i = oper
+                else: i += 2
+            case 4:
+                B = B^C
+                i += 2
+            case 5:
+                out.append(combo((A, B, C), oper) % 8)
+                i += 2
+            case 6:
+                B = A // 2**combo((A, B, C), oper)
+                i += 2
+            case 7:
+                C = A // 2**combo((A, B, C), oper)
+                i += 2
 
     return out
 
