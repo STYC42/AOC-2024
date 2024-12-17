@@ -110,6 +110,6 @@ def part2(l):
 
 
 if __name__ == "__main__":
-    l = read_file("17/test.txt")
+    l = read_file("17/input.txt")
     print("Part 1:", part1(l))
     print("Part 2:", part2(l))
