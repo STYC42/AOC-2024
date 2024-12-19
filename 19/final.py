@@ -1,4 +1,5 @@
 from functools import lru_cache
+from tqdm import tqdm
 
 def read_file(file):
     with open(file, 'r') as file:
@@ -23,7 +24,7 @@ def possible(patterns, tower):
 def part1(l):
     s = 0
     patterns, towers = decrypt(l)
-    for tower in towers:
+    for tower in tqdm(towers, leave=False):
         if (r := possible(tuple(patterns), tower)):
             s += 1
     return s
@@ -31,13 +32,12 @@ def part1(l):
 def part2(l):
     s = 0
     patterns, towers = decrypt(l)
-    for tower in towers:
+    for tower in tqdm(towers, leave=False):
         if (r := possible(tuple(patterns), tower)):
             s += r
     return s
 
-
 if __name__ == "__main__":
-    l = read_file("19/test.txt")
+    l = read_file("19/input.txt")
     print("Part 1:", part1(l))
     print("Part 2:", part2(l))
